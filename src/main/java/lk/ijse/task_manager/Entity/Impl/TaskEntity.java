@@ -17,7 +17,7 @@ import java.time.LocalDateTime;
 @Entity
 public class TaskEntity implements SuperEntity {
     @Id
-    private Long id;
+    private String id;
     private String title;
     private String description;
     private String status;

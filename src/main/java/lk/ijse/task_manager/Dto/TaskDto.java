@@ -11,7 +11,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @Data
 public class TaskDto implements TaskStatus {
-    private Long id;
+    private String id;
     private String title;
     private String description;
     private String status;
