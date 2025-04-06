@@ -38,7 +38,7 @@ public class TaskServiceImpl implements TaskService {
 
     @Override
     public void deletingTask(String id) {
-        Optional<TaskEntity> specificTask = taskDao.findById(id); // No Long.valueOf
+        Optional<TaskEntity> specificTask = taskDao.findById(id);
 
         if(specificTask.isPresent()){
             taskDao.delete(specificTask.get());
