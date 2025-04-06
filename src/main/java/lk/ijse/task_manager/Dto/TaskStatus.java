@@ -1,4 +1,8 @@
 package lk.ijse.task_manager.Dto;
 
-public interface TaskStatus {
+import lk.ijse.task_manager.SuperDTO;
+
+import java.io.Serializable;
+
+public interface TaskStatus extends Serializable, SuperDTO {
 }
