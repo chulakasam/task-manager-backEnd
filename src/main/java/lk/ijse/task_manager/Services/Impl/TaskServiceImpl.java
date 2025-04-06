@@ -5,6 +5,7 @@ import lk.ijse.task_manager.Dao.TaskDao;
 import lk.ijse.task_manager.Dto.TaskDto;
 import lk.ijse.task_manager.Entity.Impl.TaskEntity;
 import lk.ijse.task_manager.Exception.DataPersistException;
+import lk.ijse.task_manager.Exception.TaskNotFoundException;
 import lk.ijse.task_manager.Services.TaskService;
 import lk.ijse.task_manager.Util.Mapping;
 
@@ -13,6 +14,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Transactional
@@ -32,5 +34,16 @@ public class TaskServiceImpl implements TaskService {
     @Override
     public List<TaskDto> getAllTask() {
         return mapping.toTaskDTOList(taskDao.findAll());
+    }
+
+    @Override
+    public void deletingTask(String id) {
+        Optional<TaskEntity> specificTask = taskDao.findById(id); // No Long.valueOf
+
+        if(specificTask.isPresent()){
+            taskDao.delete(specificTask.get());
+        }else {
+            throw new TaskNotFoundException("Task not found...!");
+        }
     }
 }

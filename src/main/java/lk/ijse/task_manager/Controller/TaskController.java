@@ -37,8 +37,23 @@ public class TaskController {
     }
 
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-   public List<TaskDto> getAllTasks(){
+    public List<TaskDto> getAllTasks(){
         return taskService.getAllTask();
     }
+
+    @DeleteMapping(value = "/{id}")
+    public ResponseEntity<Void> deleteTask(@PathVariable("id") String id){
+        try{
+            taskService.deletingTask(id);
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }catch (DataPersistException e){
+            e.printStackTrace();
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }catch(Exception e){
+            e.printStackTrace();
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
 
 }
