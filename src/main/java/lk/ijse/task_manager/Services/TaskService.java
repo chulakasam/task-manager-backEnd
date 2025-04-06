@@ -13,4 +13,7 @@ public interface TaskService {
     void deletingTask(String id);
 
     TaskStatus getSelectTask(String id);
+
+    void updateSpecificTask(String id, TaskDto taskDto);
+
 }

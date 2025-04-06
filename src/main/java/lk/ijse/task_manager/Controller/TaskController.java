@@ -62,6 +62,23 @@ public class TaskController {
     }
 
 
+    @PutMapping(value="/{id}")
+    public ResponseEntity<Void> updateTask(@PathVariable("id") String id,
+                                           @RequestBody TaskDto taskDto){
+        try{
+            taskService.updateSpecificTask(id,taskDto);
+            return new ResponseEntity<>(HttpStatus.OK);
+        }catch(DataPersistException e) {
+            e.printStackTrace();
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }catch(Exception e){
+            e.printStackTrace();
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
+    }
+
+
 
 
 

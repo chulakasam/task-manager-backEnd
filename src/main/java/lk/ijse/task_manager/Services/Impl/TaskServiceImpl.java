@@ -57,7 +57,19 @@ public class TaskServiceImpl implements TaskService {
         }else {
             return new SelectedTaskErrorStatus(2,"Selected task not found");
         }
+    }
 
+    @Override
+    public void updateSpecificTask(String id, TaskDto taskDto) {
+        Optional<TaskEntity> selectedTask = taskDao.findById(id);
+        if(selectedTask.isPresent()){
+            selectedTask.get().setTitle(taskDto.getTitle());
+            selectedTask.get().setDescription(taskDto.getDescription());
+            selectedTask.get().setStatus(taskDto.getStatus());
+            selectedTask.get().setCreatedAt(taskDto.getCreatedAt());
+        }else  {
+            throw new TaskNotFoundException("Task not found...!");
+        }
     }
 
 
