@@ -1,6 +1,7 @@
 package lk.ijse.task_manager.Controller;
 
 import lk.ijse.task_manager.Dto.TaskDto;
+import lk.ijse.task_manager.Dto.TaskStatus;
 import lk.ijse.task_manager.Exception.DataPersistException;
 import lk.ijse.task_manager.Services.TaskService;
 import lk.ijse.task_manager.Util.AppUtil;
@@ -54,6 +55,14 @@ public class TaskController {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+
+    @GetMapping(value = "/{id}",produces = MediaType.APPLICATION_JSON_VALUE)
+    public TaskStatus getSpecificTask(@PathVariable("id") String id){
+        return taskService.getSelectTask(id);
+    }
+
+
+
 
 
 }

@@ -1,8 +1,10 @@
 package lk.ijse.task_manager.Services.Impl;
 
 
+import lk.ijse.task_manager.CustomStatusCode.SelectedTaskErrorStatus;
 import lk.ijse.task_manager.Dao.TaskDao;
 import lk.ijse.task_manager.Dto.TaskDto;
+import lk.ijse.task_manager.Dto.TaskStatus;
 import lk.ijse.task_manager.Entity.Impl.TaskEntity;
 import lk.ijse.task_manager.Exception.DataPersistException;
 import lk.ijse.task_manager.Exception.TaskNotFoundException;
@@ -46,4 +48,17 @@ public class TaskServiceImpl implements TaskService {
             throw new TaskNotFoundException("Task not found...!");
         }
     }
+
+    @Override
+    public TaskStatus getSelectTask(String id) {
+        if (taskDao.existsById(id)){
+            TaskEntity selectedTask = taskDao.getReferenceById(id);
+            return mapping.toTaskDTO(selectedTask);
+        }else {
+            return new SelectedTaskErrorStatus(2,"Selected task not found");
+        }
+
+    }
+
+
 }
