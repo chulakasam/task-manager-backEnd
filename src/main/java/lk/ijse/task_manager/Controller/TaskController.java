@@ -16,13 +16,14 @@ import java.util.List;
 
 @RestController
 @RequestMapping("api/v1/task")
+@CrossOrigin(origins = "http://localhost:4200")
 public class TaskController {
     @Autowired
     private TaskService taskService;
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE,produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Void> createTask(@RequestBody TaskDto taskDto){
-
+        System.out.println(taskDto);
         String taskId = AppUtil.generateTaskId();
         try{
             taskDto.setId(taskId);
