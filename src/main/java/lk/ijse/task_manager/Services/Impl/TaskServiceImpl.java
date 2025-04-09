@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.sql.SQLOutput;
 import java.util.List;
 import java.util.Optional;
 
@@ -41,11 +42,12 @@ public class TaskServiceImpl implements TaskService {
     @Override
     public void deletingTask(String id) {
         Optional<TaskEntity> specificTask = taskDao.findById(id);
+        System.out.println(specificTask);
+        if(!specificTask.isPresent()){
 
-        if(specificTask.isPresent()){
-            taskDao.delete(specificTask.get());
-        }else {
             throw new TaskNotFoundException("Task not found...!");
+        }else {
+            taskDao.deleteById(id);
         }
     }
 

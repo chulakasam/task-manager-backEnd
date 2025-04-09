@@ -3,6 +3,7 @@ package lk.ijse.task_manager.Controller;
 import lk.ijse.task_manager.Dto.TaskDto;
 import lk.ijse.task_manager.Dto.TaskStatus;
 import lk.ijse.task_manager.Exception.DataPersistException;
+import lk.ijse.task_manager.Exception.TaskNotFoundException;
 import lk.ijse.task_manager.Services.TaskService;
 import lk.ijse.task_manager.Util.AppUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,17 +46,21 @@ public class TaskController {
 
     @DeleteMapping(value = "/{id}")
     public ResponseEntity<Void> deleteTask(@PathVariable("id") String id){
-        try{
+        try {
             taskService.deletingTask(id);
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-        }catch (DataPersistException e){
+        } catch (TaskNotFoundException e) {
+            e.printStackTrace();
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        } catch (DataPersistException e) {
             e.printStackTrace();
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        }catch(Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+
 
     @GetMapping(value = "/{id}",produces = MediaType.APPLICATION_JSON_VALUE)
     public TaskStatus getSpecificTask(@PathVariable("id") String id){
